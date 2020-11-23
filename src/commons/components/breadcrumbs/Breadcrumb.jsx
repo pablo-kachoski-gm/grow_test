@@ -1,26 +1,52 @@
+import NavContext from "commons/context/nav-context";
+import { useContext } from "react";
 import { Link, Route } from "react-router-dom";
 import "./_breadcrumb.scss";
 
-const Breadcrumbs = ({ match }) => {
+const BreadCrumbItem = ({ match, title }) => {
   const toURL = match.url || "";
   const breacrumClassName = match.isExact
     ? "breadcrumb"
     : "breadcrumb inactive";
-  const linkName = match.url.substr(
-    match.url.lastIndexOf("/") + 1,
-    match.url.length
+  return (
+    <Link
+      style={{ textTransform: "capitalize" }}
+      to={toURL}
+      className={breacrumClassName}
+    >
+      {title}
+    </Link>
   );
-  const breadCrumURL = `${match.url}/:path`;
+};
+const Breadcrumbs = () => {
+  const {
+    navigationData: { selectedPlanet, selectedResident },
+  } = useContext(NavContext);
+
   return (
     <>
-      <Link
-        style={{ textTransform: "capitalize" }}
-        to={toURL}
-        className={breacrumClassName}
-      >
-        {linkName}
-      </Link>
-      <Route path={breadCrumURL} component={Breadcrumbs} />
+      <Route
+        path="/planets"
+        render={(props) => <BreadCrumbItem {...props} title="All Planets" />}
+      />
+      <Route
+        path="/planets/planet:planetId"
+        render={(props) => (
+          <BreadCrumbItem
+            {...props}
+            title={`Planet ${selectedPlanet?.name || ""}`}
+          />
+        )}
+      />
+      <Route
+        path="/planets/planet:planetId/people:peopleId"
+        render={(props) => (
+          <BreadCrumbItem
+            {...props}
+            title={`Resident ${selectedResident?.name || ""}`}
+          />
+        )}
+      />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import LoadingScreen from "commons/components/loading/LoadingScreen";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import getPlanets from "planets/api/get-planets";
 import PlanetCard from "planets/components/PlanetCard";
 import useSearch from "commons/hooks/useSearch";
@@ -7,6 +7,7 @@ import "./_page.scss";
 import { useHistory } from "react-router-dom";
 import PageTitle from "commons/components/titles/PageTitle";
 import FetchErrorPlaceholder from "commons/components/placeholder/FetchErrorPlaceholder";
+import NavContext from "commons/context/nav-context";
 
 const PlanetsList = () => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,8 @@ const PlanetsList = () => {
   const [hasFechError, setHasFechError] = useState(false);
   const history = useHistory();
   const firstLoad = useRef(true);
+  const { updateData } = useContext(NavContext);
+
   const onSearch = (value) => {
     if (value) {
       const filtered = planets?.filter((planet) =>
@@ -47,6 +50,10 @@ const PlanetsList = () => {
           fetchedPlanets.push(...allPlanets);
         }
         setPlanets(fetchedPlanets);
+        updateData({
+          selectedPlanet: { name: "" },
+          selectedResident: { name: "" },
+        });
       } catch (error) {
         setHasFechError(true);
       } finally {
@@ -55,7 +62,7 @@ const PlanetsList = () => {
       }
     };
     loadPlanets();
-  }, [hasFechError, setHasFechError]);
+  }, [hasFechError, setHasFechError, updateData]);
   return (
     <>
       {loading && <LoadingScreen />}

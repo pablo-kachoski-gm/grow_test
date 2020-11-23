@@ -1,11 +1,12 @@
 import LoadingScreen from "commons/components/loading/LoadingScreen";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import TextField from "commons/components/fields/TextField";
 import "./_page.scss";
 import { useParams } from "react-router-dom";
 import getPeople from "people/api/get-people";
 import PageTitle from "commons/components/titles/PageTitle";
 import FetchErrorPlaceholder from "commons/components/placeholder/FetchErrorPlaceholder";
+import NavContext from "commons/context/nav-context";
 
 const PlanetsList = () => {
   const [loading, setLoading] = useState(true);
@@ -13,15 +14,18 @@ const PlanetsList = () => {
   const [hasFechError, setHasFechError] = useState(false);
   const { peopleId } = useParams();
   const firstLoad = useRef(true);
+  const { updateData } = useContext(NavContext);
 
   useEffect(() => {
     if (!firstLoad.current) return;
-
     const loadResident = async () => {
       setLoading(true);
       try {
         let result = await getPeople({ id: peopleId });
         setPeople(result);
+        updateData({
+          selectedResident: { name: result.name },
+        });
       } catch (error) {
         setHasFechError(true);
       } finally {
@@ -30,7 +34,7 @@ const PlanetsList = () => {
       }
     };
     loadResident();
-  }, [hasFechError, setHasFechError, peopleId]);
+  }, [hasFechError, setHasFechError, peopleId, updateData]);
 
   const {
     name,

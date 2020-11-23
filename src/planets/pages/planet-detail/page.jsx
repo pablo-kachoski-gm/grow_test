@@ -1,5 +1,5 @@
 import LoadingScreen from "commons/components/loading/LoadingScreen";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import getPlanet from "planets/api/get-planet";
 import TextField from "commons/components/fields/TextField";
 import "./_page.scss";
@@ -9,14 +9,16 @@ import PageTitle from "commons/components/titles/PageTitle";
 import PageSubtitle from "commons/components/titles/PageSubtitle";
 import ResidentCard from "planets/components/ResidentCard";
 import FetchErrorPlaceholder from "commons/components/placeholder/FetchErrorPlaceholder";
+import NavContext from "commons/context/nav-context";
 
-const PlanetsList = () => {
+const PlanetsList = ({ setSelected }) => {
   const [loading, setLoading] = useState(true);
   const [planet, setPlanet] = useState({});
   const [hasFechError, setHasFechError] = useState(false);
   const { planetId } = useParams();
   const firstLoad = useRef(true);
   const history = useHistory();
+  const { updateData } = useContext(NavContext);
 
   useEffect(() => {
     if (!firstLoad.current) return;
@@ -33,6 +35,10 @@ const PlanetsList = () => {
           result = { ...result, residents: fetchedPeople };
         }
         setPlanet(result);
+        updateData({
+          selectedPlanet: { name: result.name },
+          selectedResident: { name: "" },
+        });
       } catch (error) {
         setHasFechError(true);
       } finally {
@@ -41,7 +47,7 @@ const PlanetsList = () => {
       }
     };
     loadPlanet();
-  }, [hasFechError, setHasFechError, planetId]);
+  }, [hasFechError, setHasFechError, planetId, updateData]);
 
   const {
     name,
