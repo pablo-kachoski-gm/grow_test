@@ -18,7 +18,7 @@ const PlanetCard = ({ planet }) => {
   return (
     <div className="planet-card">
       <span className="planet-card__title">{name}</span>
-      <span className="two_columns">
+      <span className="multi-columns">
         <TextField value={population} title={"Population"} />
         <TextField value={diameter} title={"Diameter"} />
       </span>

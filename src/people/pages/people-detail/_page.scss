@@ -1,4 +1,4 @@
-.planet-detail-content {
+.people-detail-content {
   color: #fff;
   background: #303035;
   display: flex;
@@ -10,12 +10,4 @@
   & > * {
     margin-bottom: 1em;
   }
-}
-
-.residents-grid-cards {
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  padding: 0;
-  list-style-type: none;
 }
