@@ -1,0 +1,25 @@
+.resident-card {
+  color: #fff;
+  background: #303035;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  padding: 20px 15px 20px 15px;
+  height: 230px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+
+  & > * {
+    margin-bottom: 0.5em;
+    &:first-child {
+      margin-bottom: 1.5em;
+    }
+  }
+}
+
+.resident-card__title {
+  font-size: 14px;
+  font-weight: bold;
+}

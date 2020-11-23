@@ -1,0 +1,32 @@
+.planet-card {
+  color: #fff;
+  background: linear-gradient(
+    to bottom,
+    #5f5b5b 0%,
+    #5f5b5b 17%,
+    #303035 17%,
+    #303035 100%
+  );
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  padding: 20px 15px 20px 15px;
+  height: 420px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  & > * {
+    margin-bottom: 1em;
+    &:first-child {
+      margin-bottom: 2em;
+    }
+  }
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+}
+
+.planet-card__title {
+  font-size: 20px;
+}

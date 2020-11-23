@@ -1,0 +1,14 @@
+.card-prop-container {
+  display: flex;
+  flex-direction: column;
+}
+.card-prop-li-container {
+  display: flex;
+  flex-direction: row;
+  & > *:first-child {
+    margin-right: 1em;
+  }
+}
+.card-prop-title {
+  font-weight: bold;
+}
