@@ -72,7 +72,7 @@ const PlanetsList = () => {
         {hasFechError ? (
           <FetchErrorPlaceholder />
         ) : (
-          <ul className="grid-cards">
+          <ul className="planet-grid-cards">
             {filteredPlanets?.map((planet) => {
               const { id } = planet;
               return (

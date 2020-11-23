@@ -13,7 +13,11 @@ const Breadcrumbs = ({ match }) => {
   const breadCrumURL = `${match.url}/:path`;
   return (
     <>
-      <Link to={toURL} className={breacrumClassName}>
+      <Link
+        style={{ textTransform: "capitalize" }}
+        to={toURL}
+        className={breacrumClassName}
+      >
         {linkName}
       </Link>
       <Route path={breadCrumURL} component={Breadcrumbs} />
