@@ -5,6 +5,7 @@ import "./_page.scss";
 import { useParams } from "react-router-dom";
 import getPeople from "people/api/get-people";
 import PageTitle from "commons/components/titles/PageTitle";
+import FetchErrorPlaceholder from "commons/components/placeholder/FetchErrorPlaceholder";
 
 const PlanetsList = () => {
   const [loading, setLoading] = useState(true);
@@ -49,28 +50,17 @@ const PlanetsList = () => {
           <PageTitle title={name} />
 
           {hasFechError ? (
-            <div>
-              There was an error getting the data. Please contact the
-              administrator
-            </div>
+            <FetchErrorPlaceholder />
           ) : (
-            <>
-              <div className="people-detail-content">
-                <span className="multi-columns">
-                  <TextField value={height} title={"Height"} />
-                  <TextField value={mass} title={"Mass"} />
-                  <TextField value={hair_color} title={"Hair color"} />
-                </span>
-                <span className="multi-columns">
-                  <TextField value={eye_color} title={"Eye color"} />
-                  <TextField value={birth_year} title={"Birth year"} />
-                  <TextField value={gender} title={"Gender"} />
-                </span>
-                <span className="multi-columns">
-                  <TextField value={skin_color} title={"Eye color"} />
-                </span>
-              </div>
-            </>
+            <div className="people-detail-content">
+              <TextField value={height} title={"Height"} />
+              <TextField value={mass} title={"Mass"} />
+              <TextField value={hair_color} title={"Hair color"} />
+              <TextField value={eye_color} title={"Eye color"} />
+              <TextField value={birth_year} title={"Birth year"} />
+              <TextField value={gender} title={"Gender"} />
+              <TextField value={skin_color} title={"Eye color"} />
+            </div>
           )}
         </div>
       )}

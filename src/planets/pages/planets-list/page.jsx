@@ -6,6 +6,7 @@ import useSearch from "commons/hooks/useSearch";
 import "./_page.scss";
 import { useHistory } from "react-router-dom";
 import PageTitle from "commons/components/titles/PageTitle";
+import FetchErrorPlaceholder from "commons/components/placeholder/FetchErrorPlaceholder";
 
 const PlanetsList = () => {
   const [loading, setLoading] = useState(false);
@@ -69,20 +70,20 @@ const PlanetsList = () => {
         />
 
         {hasFechError ? (
-          <div>
-            There was an error getting the data. Please contact the
-            administrator
-          </div>
+          <FetchErrorPlaceholder />
         ) : (
           <ul className="grid-cards">
-            {filteredPlanets?.map((planet) => (
-              <li
-                key={`${planet.name}`}
-                onClick={() => history.push(`/planets/${planet.id}`)}
-              >
-                <PlanetCard {...{ planet }} />
-              </li>
-            ))}
+            {filteredPlanets?.map((planet) => {
+              const { id } = planet;
+              return (
+                <li
+                  key={`planet-${id}`}
+                  onClick={() => history.push(`/planets/planet${id}`)}
+                >
+                  <PlanetCard {...{ planet }} />
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

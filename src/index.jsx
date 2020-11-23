@@ -2,10 +2,13 @@ import { StrictMode } from "react";
 import App from "commons/components/App";
 import ReactDOM from "react-dom";
 import "./index.scss";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
   document.getElementById("root")
 );

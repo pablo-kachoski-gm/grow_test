@@ -8,6 +8,7 @@ import getPeople from "people/api/get-people";
 import PageTitle from "commons/components/titles/PageTitle";
 import PageSubtitle from "commons/components/titles/PageSubtitle";
 import ResidentCard from "planets/components/ResidentCard";
+import FetchErrorPlaceholder from "commons/components/placeholder/FetchErrorPlaceholder";
 
 const PlanetsList = () => {
   const [loading, setLoading] = useState(true);
@@ -62,42 +63,34 @@ const PlanetsList = () => {
           <PageTitle title={name} />
 
           {hasFechError ? (
-            <div>
-              There was an error getting the data. Please contact the
-              administrator
-            </div>
+            <FetchErrorPlaceholder />
           ) : (
             <>
               <div className="planet-detail-content">
-                <span className="multi-columns">
-                  <TextField value={population} title={"Population"} />
-                  <TextField value={diameter} title={"Diameter"} />
-                  <TextField value={climate} title={"Climate"} />
-                </span>
-                <span className="multi-columns">
-                  <TextField value={terrain} title={"Terrain"} />
-                  <TextField value={gravity} title={"Gravity"} />
-                  <TextField value={surface_water} title={"Surface water"} />
-                </span>
-                <span className="multi-columns">
-                  <TextField
-                    value={rotation_period}
-                    title={"rotation_period"}
-                  />
-                  <TextField value={orbital_period} title={"orbital_period"} />
-                  <span />
-                </span>
+                <TextField value={population} title={"Population"} />
+                <TextField value={diameter} title={"Diameter"} />
+                <TextField value={climate} title={"Climate"} />
+                <TextField value={terrain} title={"Terrain"} />
+                <TextField value={gravity} title={"Gravity"} />
+                <TextField value={surface_water} title={"Surface water"} />
+                <TextField value={rotation_period} title={"rotation_period"} />
+                <TextField value={orbital_period} title={"orbital_period"} />
               </div>
               <PageSubtitle style={{ marginTop: "2em" }} title="Residents" />
               <ul className="residents-grid-cards">
-                {planet.residents?.map((resident) => (
-                  <li
-                    key={`${resident.id}`}
-                    onClick={() => history.push(`/people/${resident.id}`)}
-                  >
-                    <ResidentCard {...{ resident }} />
-                  </li>
-                ))}
+                {planet.residents?.map((resident) => {
+                  const { id } = resident;
+                  return (
+                    <li
+                      key={`resident-${id}`}
+                      onClick={() =>
+                        history.push(`/planets/planet${planetId}/people${id}`)
+                      }
+                    >
+                      <ResidentCard {...{ resident }} />
+                    </li>
+                  );
+                })}
               </ul>
             </>
           )}
