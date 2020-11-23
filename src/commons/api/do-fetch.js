@@ -1,4 +1,4 @@
-import { API_BASE_URL } from 'planets/constants/env'
+import { API_BASE_URL } from 'commons/constants/env'
 
 const doFetch = async ({ method, body, endpoint, page }) => {
   const params = Object.assign(
